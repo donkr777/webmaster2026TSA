@@ -1,0 +1,223 @@
+:root {
+    --maroon: #74264F;
+    --gold: #FFC72C;
+    --light-gray: #F5F5F5;
+    --dark-gray: #333333;
+    --white: #FFFFFF;
+    --max-width: 1200px;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Georgia', 'Times New Roman', serif;
+    line-height: 1.6;
+    color: var(--dark-gray);
+    background-color: var(--white);
+}
+
+.container {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.site-header {
+    background: var(--maroon);
+    color: var(--white);
+    padding: 15px 0;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.site-title {
+    font-size: 24px;
+    margin: 0;
+    font-weight: bold;
+}
+
+.site-nav {
+    display: flex;
+    gap: 20px;
+}
+
+.site-nav a {
+    color: var(--white);
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s ease;
+}
+
+.site-nav a:hover {
+    color: var(--gold);
+}
+
+.hero {
+    position: relative;
+    height: 500px;
+    background: linear-gradient(rgba(116, 38, 79, 0.7), rgba(116, 38, 79, 0.5)), 
+                url("{{ url_for('static', filename='metrimonehouse.png') }}");
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: var(--white);
+}
+
+.hero-inner {
+    max-width: 800px;
+    padding: 20px;
+}
+
+.hero-title {
+    font-size: 48px;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+}
+
+.hero-sub {
+    font-size: 20px;
+    margin-bottom: 30px;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+}
+
+.hero-actions {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.btn {
+    display: inline-block;
+    padding: 12px 24px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    border: 2px solid var(--maroon);
+}
+
+.btn {
+    background: var(--maroon);
+    color: var(--white);
+}
+
+.btn:hover {
+    background: var(--gold);
+    color: var(--maroon);
+    border-color: var(--gold);
+}
+
+.btn.ghost {
+    background: transparent;
+    border: 2px solid var(--white);
+    color: var(--white);
+}
+
+.btn.ghost:hover {
+    background: var(--white);
+    color: var(--maroon);
+}
+
+.quick-links {
+    padding: 60px 0;
+    background: var(--light-gray);
+}
+
+.quick-links h3 {
+    text-align: center;
+    margin-bottom: 40px;
+    font-size: 32px;
+    color: var(--maroon);
+}
+
+.links-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+}
+
+.card {
+    text-decoration: none;
+    background: var(--white);
+    border: 1px solid #ddd;
+    padding: 30px;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+    color: var(--dark-gray);
+    text-align: center;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    border-color: var(--maroon);
+}
+
+.card h4 {
+    color: var(--maroon);
+    margin-bottom: 15px;
+    font-size: 20px;
+}
+
+.card p {
+    color: var(--dark-gray);
+    line-height: 1.5;
+}
+
+.page {
+    padding: 60px 0;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.page h2 {
+    color: var(--maroon);
+    margin-bottom: 30px;
+    font-size: 36px;
+    text-align: center;
+}
+
+.site-footer {
+    background: var(--maroon);
+    color: var(--white);
+    padding: 30px 0;
+    text-align: center;
+}
+
+@media (max-width: 768px) {
+    .header-inner {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .site-nav {
+        gap: 15px;
+    }
+    
+    .hero-title {
+        font-size: 36px;
+    }
+    
+    .hero-sub {
+        font-size: 18px;
+    }
+    
+    .hero-actions {
+        flex-direction: column;
+        align-items: center;
+    }
+}

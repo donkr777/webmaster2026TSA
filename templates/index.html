@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="hero">
+    <div class="hero-inner">
+        <h2 class="hero-title">Welcome to Lower Merion Township</h2>
+        <p class="hero-sub">Discover the rich history, vibrant communities, and beautiful landmarks of Pennsylvania's historic Main Line</p>
+        <div class="hero-actions">
+            <a class="btn" href="{{ url_for('history') }}">Explore Our History</a>
+            <a class="btn ghost" href="{{ url_for('map_page') }}">Discover Landmarks</a>
+        </div>
+    </div>
+</section>
+
+<section class="quick-links">
+    <div class="container">
+        <h3>Explore Lower Merion</h3>
+        <div class="links-grid">
+            <a class="card" href="{{ url_for('history') }}">
+                <h4>History & Timeline</h4>
+                <p>From Lenni-Lenape heritage to modern community development</p>
+            </a>
+            <a class="card" href="{{ url_for('stories') }}">
+                <h4>Community Stories</h4>
+                <p>Profiles of notable residents and neighborhood spotlights</p>
+            </a>
+            <a class="card" href="{{ url_for('map_page') }}">
+                <h4>Interactive Map</h4>
+                <p>Explore historic landmarks and cultural sites</p>
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %}
