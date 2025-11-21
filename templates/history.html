@@ -1,7 +1,368 @@
 {% extends "base.html" %}
 {% block content %}
-<article class="page">
-    <h2>History</h2>
-    <p>Placeholder for the history narrative. We will add the full researched content and a CSS timeline here.</p>
-</article>
+
+<!-- Summary Button -->
+<div class="summary-btn-container">
+    <button class="summary-btn" onclick="toggleSummaryView()">
+        <i class="fas fa-book"></i> Read Summary
+    </button>
+</div>
+
+<!-- Main Content Container -->
+<div id="mainContent">
+    <!-- Interactive Timeline Section -->
+    <section class="timeline-wheel-section">
+        <h3>Interactive Timeline</h3>
+        
+        <div class="timeline-toggle">
+            <button class="toggle-btn" onclick="toggleTimelineView()">
+                <i class="fas fa-exchange-alt"></i> Switch to Traditional Timeline View
+            </button>
+        </div>
+
+        <!-- Circular Timeline Wheel with Video Background -->
+        <div class="cards-container" id="circularTimeline">
+            <video autoplay muted loop playsinline>
+                <source src="{{ url_for('static', filename='lenapetribe.mp4') }}" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <ul class="cards" style="--items: 12;">
+                <li style="--i: 0;">
+                    <input type="radio" id="item-0" name="gallery-item" checked>
+                    <label for="item-0">Pre-1600</label>
+                    <img src="{{ url_for('static', filename='lenape-tribe.jpg') }}" alt="Lenni-Lenape tribe" class="timeline-image">
+                    <h2>Pre-1600</h2>
+                    <p>Lower Merion lay within the homeland of the Lenni-Lenape people, who lived along the Schuylkill River. They followed seasonal patterns of fishing, hunting, and agriculture, with well-worn trails connecting their communities throughout the region.</p>
+                </li>
+                <li style="--i: 1;">
+                    <input type="radio" id="item-1" name="gallery-item">
+                    <label for="item-1">1630s</label>
+                    <img src="{{ url_for('static', filename='eastcoastmap.png') }}" alt="East Coast Map" class="timeline-image">
+                    <h2>1630s</h2>
+                    <p>Dutch and Swedish traders established the first European contacts with the Lenape. The Swedes built Fort Nassau near the Schuylkill River mouth, initiating the fur trade that would transform Lenape economic life.</p>
+                </li>
+                <li style="--i: 2;">
+                    <input type="radio" id="item-2" name="gallery-item">
+                    <label for="item-2">1682</label>
+                    <img src="{{ url_for('static', filename='handwritten-ms.jpg') }}" alt="Historical Document" class="timeline-image">
+                    <h2>1682</h2>
+                    <p>Welsh Quakers obtained the Welsh Tract from William Penn, establishing the first permanent European settlement in what would become Lower Merion. The Merion Friends Meeting House construction began, becoming a community cornerstone.</p>
+                </li>
+                <li style="--i: 3;">
+                    <input type="radio" id="item-3" name="gallery-item">
+                    <label for="item-3">1712</label>
+                    <img src="{{ url_for('static', filename='pennsilvaniamapwithlenapehouses.jpg') }}" alt="Pennsylvania Map" class="timeline-image">
+                    <h2>1712</h2>
+                    <p>Lower Merion was formally established as an independent township with approximately 52 landholders. The community primarily practiced agriculture, with Welsh Quaker traditions shaping local governance and culture.</p>
+                </li>
+                <li style="--i: 4;">
+                    <input type="radio" id="item-4" name="gallery-item">
+                    <label for="item-4">1737</label>
+                    <img src="{{ url_for('static', filename='lenapefarmers.jpeg') }}" alt="Lenape Farmers" class="timeline-image">
+                    <h2>1737</h2>
+                    <p>The infamous "Walking Purchase" deprived the Lenape of their remaining lands in eastern Pennsylvania. This fraudulent treaty marked the final displacement of the region's original inhabitants.</p>
+                </li>
+                <li style="--i: 5;">
+                    <input type="radio" id="item-5" name="gallery-item">
+                    <label for="item-5">1800s</label>
+                    <img src="{{ url_for('static', filename='youngsfordrighters.jpg') }}" alt="Historic Mill" class="timeline-image">
+                    <h2>Early 1800s</h2>
+                    <p>Water-powered industries flourished along Mill Creek and other tributaries. Gristmills, sawmills, and forges processed local resources, connecting Lower Merion to Philadelphia's growing economy through roads like Old Lancaster Road.</p>
+                </li>
+                <li style="--i: 6;">
+                    <input type="radio" id="item-6" name="gallery-item">
+                    <label for="item-6">1850s</label>
+                    <img src="{{ url_for('static', filename='golden-mile-1977.jpg') }}" alt="Railroad Era" class="timeline-image">
+                    <h2>1850s</h2>
+                    <p>The Pennsylvania Railroad extended through Lower Merion, creating the famous "Main Line" suburbs. Stations at Ardmore, Bryn Mawr, and other villages transformed the area into affluent commuter communities.</p>
+                </li>
+                <li style="--i: 7;">
+                    <input type="radio" id="item-7" name="gallery-item">
+                    <label for="item-7">1896</label>
+                    <h2>1896</h2>
+                    <p>Lower Merion High School opened, becoming an educational anchor for the growing township. The school would evolve into a central institution reflecting the community's values and aspirations.</p>
+                </li>
+                <li style="--i: 8;">
+                    <input type="radio" id="item-8" name="gallery-item">
+                    <label for="item-8">1928</label>
+                    <h2>1928</h2>
+                    <p>Suburban Square opened in Ardmore as one of America's first modern shopping centers. This innovative retail development combined automobile access with Main Line elegance, setting national trends.</p>
+                </li>
+                <li style="--i: 9;">
+                    <input type="radio" id="item-9" name="gallery-item">
+                    <label for="item-9">1900</label>
+                    <h2>1900</h2>
+                    <p>Lower Merion incorporated as a Township of the First Class, reflecting its population growth and increasing governmental complexity as it evolved from rural countryside to established suburb.</p>
+                </li>
+                <li style="--i: 10;">
+                    <input type="radio" id="item-10" name="gallery-item">
+                    <label for="item-10">1949</label>
+                    <h2>1949</h2>
+                    <p>The Lower Merion Historical Society was founded to preserve the township's rich heritage. The organization would become instrumental in documenting and protecting local history.</p>
+                </li>
+                <li style="--i: 11;">
+                    <input type="radio" id="item-11" name="gallery-item">
+                    <label for="item-11">Today</label>
+                    <h2>Modern Era</h2>
+                    <p>Lower Merion thrives as a historic yet dynamic community. The Cynwyd Heritage Trail, vibrant town centers, and preserved architecture blend the township's layered history with contemporary life.</p>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Complete Traditional Timeline -->
+        <div class="traditional-timeline" id="traditionalTimeline">
+            <div class="timeline__event animated fadeInUp timeline__event--type1">
+                <div class="timeline__event__date">Pre-1600</div>
+                <div class="timeline__event__content">
+                    <div class="timeline__event__title">The Lenni-Lenape Homeland</div>
+                    <img src="{{ url_for('static', filename='lenape-tribe.jpg') }}" alt="Lenni-Lenape tribe" class="timeline-image-full">
+                    <img src="{{ url_for('static', filename='lenapetribewithspears.png') }}" alt="Lenape with spears" class="timeline-image-full">
+                    <p class="timeline-caption">The Lenni-Lenape people inhabited the Lower Merion area for centuries before European contact</p>
+                    <div class="timeline__event__description">
+                        <p>Long before European settlement, Lower Merion lay within the homeland of the Lenni-Lenape, particularly the bands living along the lower Schuylkill River and its tributaries. Seasonal movements brought Lenape families to rich fishing and hunting grounds near the river in summer and to more protected inland areas during colder months.</p>
+                        <p>The Lenape were skilled foragers who hunted deer, fished for shad and sturgeon, and cultivated maize, beans, and squash. They lived in wigwams and maintained a sophisticated society organized around clan systems and matrilineal descent.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="timeline__event animated fadeInUp timeline__event--type2">
+                <div class="timeline__event__date">1630s</div>
+                <div class="timeline__event__content">
+                    <div class="timeline__event__title">European Contact Begins</div>
+                    <img src="{{ url_for('static', filename='eastcoastmap.png') }}" alt="East Coast Map" class="timeline-image-full">
+                    <div class="timeline__event__description">
+                        <p>Dutch and Swedish traders established the first European contacts with the Lenape people. The Swedes built Fort Nassau near the Schuylkill River mouth, initiating the fur trade that would transform Lenape economic life and begin the process of cultural exchange and eventual displacement.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="timeline__event animated fadeInUp timeline__event--type3">
+                <div class="timeline__event__date">1682</div>
+                <div class="timeline__event__content">
+                    <div class="timeline__event__title">Welsh Quaker Settlement</div>
+                    <img src="{{ url_for('static', filename='handwritten-ms.jpg') }}" alt="Historical document" class="timeline-image-full">
+                    <p class="timeline-caption">William Penn's land agreements established the Welsh Tract settlement</p>
+                    <div class="timeline__event__description">
+                        <p>In 1682, Welsh Quakers obtained from William Penn a large tract of land west of Philadelphia, known as the Welsh Tract, with the goal of creating a largely Welsh-speaking, self-governing community. The farms and homesteads that became Lower Merion grew out of this grant.</p>
+                        <p>Settlers cleared fields, built stone houses, and organized religious life around the Merion Friends Meeting. The meeting house, begun around 1695, would become one of the oldest continuously used houses of worship in the United States and a enduring symbol of the Welsh Quaker foundation.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="timeline__event animated fadeInUp timeline__event--type1">
+                <div class="timeline__event__date">1712</div>
+                <div class="timeline__event__content">
+                    <div class="timeline__event__title">Township Establishment</div>
+                    <img src="{{ url_for('static', filename='pennsilvaniamapwithlenapehouses.jpg') }}" alt="Pennsylvania Map" class="timeline-image-full">
+                    <div class="timeline__event__description">
+                        <p>Lower Merion was formally recognized as an independent township with about fifty landholders and tenants who primarily practiced agriculture. This formal establishment marked the beginning of structured local government in the area.</p>
+                        <p>The early township economy centered around agriculture, with farmers producing for both subsistence and Philadelphia markets. The Welsh cultural influence remained strong, shaping local institutions and community life for generations.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="timeline__event animated fadeInUp timeline__event--type2">
+                <div class="timeline__event__date">1737</div>
+                <div class="timeline__event__content">
+                    <div class="timeline__event__title">The Walking Purchase</div>
+                    <img src="{{ url_for('static', filename='lenapefarmers.jpeg') }}" alt="Lenape Farmers" class="timeline-image-full">
+                    <div class="timeline__event__description">
+                        <p>The Lenape lost their remaining lands in eastern Pennsylvania through the fraudulent "Walking Purchase." Penn's sons reinterpreted an earlier agreement, claiming lands far beyond what was originally intended.</p>
+                        <p>This event marked the final displacement of the Lenape from their ancestral homelands in the region, forcing their migration westward and ending their physical presence in what had become Lower Merion Township.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="timeline__event animated fadeInUp timeline__event--type3">
+                <div class="timeline__event__date">1800s</div>
+                <div class="timeline__event__content">
+                    <div class="timeline__event__title">Industrial Growth</div>
+                    <img src="{{ url_for('static', filename='youngsfordrighters.jpg') }}" alt="Historic mill" class="timeline-image-full">
+                    <p class="timeline-caption">Water-powered mills along local creeks drove early industry</p>
+                    <div class="timeline__event__description">
+                        <p>During the 1700s, Lower Merion shifted from a purely farming community to one with growing small-scale industry powered by creeks feeding into the Schuylkill River. Gristmills, sawmills, and forges appeared along Mill Creek and other streams.</p>
+                        <p>These mills processed grain, lumber, and metal for both local use and sale in Philadelphia. Roads such as Old Lancaster Road and other turnpikes connected these farms and mills to city markets, making Lower Merion a modest but important link in the colonial economy.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="timeline__event animated fadeInUp timeline__event--type1">
+                <div class="timeline__event__date">1850s</div>
+                <div class="timeline__event__content">
+                    <div class="timeline__event__title">Railroad Transformation</div>
+                    <img src="{{ url_for('static', filename='golden-mile-1977.jpg') }}" alt="Railroad Development" class="timeline-image-full">
+                    <div class="timeline__event__description">
+                        <p>The Pennsylvania Railroad extended a major line westward from Philadelphia, running straight through Lower Merion and transforming it from a farming and mill community into a premier railroad suburb.</p>
+                        <p>Stations such as Ardmore, Bryn Mawr, Bala, and Cynwyd became focal points for development. The railroad not only laid tracks but also reshaped land—most famously by acquiring a former farming village called Humphreysville, redeveloping it, and renaming it Bryn Mawr as an elite residential community.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="timeline__event animated fadeInUp timeline__event--type2">
+                <div class="timeline__event__date">1896</div>
+                <div class="timeline__event__content">
+                    <div class="timeline__event__title">Lower Merion High School</div>
+                    <div class="timeline__event__description">
+                        <p>Lower Merion High School opened its doors, becoming a central part of township life and an educational anchor for the community. The school would grow to reflect the township's commitment to education and community identity.</p>
+                        <p>As the township population grew, the high school evolved into a comprehensive institution serving students from across the community, eventually becoming known for both academic excellence and historic rivalry with neighboring districts.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="timeline__event animated fadeInUp timeline__event--type3">
+                <div class="timeline__event__date">1900</div>
+                <div class="timeline__event__content">
+                    <div class="timeline__event__title">First Class Township</div>
+                    <div class="timeline__event__description">
+                        <p>Lower Merion incorporated as a Township of the First Class, reflecting its population growth and increasing governmental complexity as it evolved from rural countryside to established suburb.</p>
+                        <p>This classification allowed for more sophisticated municipal services and governance structures to support the growing community's needs.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="timeline__event animated fadeInUp timeline__event--type1">
+                <div class="timeline__event__date">1928</div>
+                <div class="timeline__event__content">
+                    <div class="timeline__event__title">Suburban Square</div>
+                    <img src="{{ url_for('static', filename='golden-mile-1977.jpg') }}" alt="Suburban Square" class="timeline-image-full">
+                    <p class="timeline-caption">One of America's first modern shopping centers in Ardmore</p>
+                    <div class="timeline__event__description">
+                        <p>Suburban Square in Ardmore opened as one of the first modern shopping centers in the United States. This innovative development blended retail, parking, and rail access in a carefully planned environment that set national trends for suburban commerce.</p>
+                        <p>The shopping center reflected the automobile's growing influence while maintaining the Main Line's architectural elegance and community values, becoming both a practical resource and social destination for township residents.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="timeline__event animated fadeInUp timeline__event--type2">
+                <div class="timeline__event__date">1949</div>
+                <div class="timeline__event__content">
+                    <div class="timeline__event__title">Historical Society Founded</div>
+                    <div class="timeline__event__description">
+                        <p>The Lower Merion Historical Society was founded to preserve the township's rich heritage. The organization would become instrumental in documenting and protecting local history through archives, publications, and advocacy for historic preservation.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="timeline__event animated fadeInUp timeline__event--type3">
+                <div class="timeline__event__date">2000s</div>
+                <div class="timeline__event__content">
+                    <div class="timeline__event__title">Modern Preservation</div>
+                    <div class="timeline__event__description">
+                        <p>Lower Merion continued to balance growth with historic preservation. The township established a historic commission and architectural review board, adopting comprehensive historic preservation ordinances to protect its architectural heritage.</p>
+                        <p>Projects like the Cynwyd Heritage Trail repurposed former rail corridors into linear parks, while ongoing preservation efforts ensured that the township's layered history remained visible and accessible in everyday community life.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<!-- History Summary Section (Initially Hidden) -->
+<section class="history-summary" id="historySummary">
+    <div class="summary-section">
+        <h2>The Story of Lower Merion</h2>
+        <p>Lower Merion's story begins long before streets, railroads, or neighborhoods. It begins with a landscape shaped by rivers and forests, inhabited by people who understood its rhythm. Over centuries, new communities arrived, industries rose and fell, and a township full of identity and character emerged. This is the journey of the place we call home.</p>
+    </div>
+
+    <div class="summary-section">
+        <h3>The Lenni-Lenape Homeland</h3>
+        <img src="{{ url_for('static', filename='lenapefarmers.jpeg') }}" alt="Lenape Farmers" class="timeline-image-full">
+        <p>Before any European settlers stepped onto this land, Lower Merion was part of the homeland of the Lenni-Lenape people. They lived along the Schuylkill River, following its cycles for food, transportation, and trade. Villages and hunting paths lined the region, many of which later shaped the roads and properties of the township. Their stewardship of the land established the earliest chapter of Lower Merion's identity—one grounded in respect for nature and community.</p>
+    </div>
+
+    <div class="summary-section">
+        <h3>The Welsh Tract and Early Settlement</h3>
+        <img src="{{ url_for('static', filename='pennsilvaniamapwithlenapehouses.jpg') }}" alt="Pennsylvania Map" class="timeline-image-full">
+        <p>In 1682, Welsh Quakers arrived seeking a place where they could build a self-governed community. William Penn granted them a vast region called the Welsh Tract. What would become Lower Merion grew from these settlers' farms, mills, and the traditions they carried across the Atlantic. Their most enduring landmark, the Merion Friends Meeting House, still stands today as one of the oldest continuous houses of worship in the United States.</p>
+    </div>
+
+    <div class="summary-section">
+        <h3>Colonial Growth and Mills</h3>
+        <img src="{{ url_for('static', filename='youngsfordrighters.jpg') }}" alt="Historic Mill" class="timeline-image-full">
+        <p>Throughout the 1700s, the township transformed into a network of early industry powered by creeks and streams. Gristmills, sawmills, and blacksmith shops formed the base of a developing economy. Roads like Old Lancaster Road connected farms to Philadelphia markets. By the Revolutionary War, Lower Merion had become a strategically important stopover for travelers moving between major colonial centers.</p>
+    </div>
+
+    <div class="summary-section">
+        <h3>The Railroad and the Birth of the Main Line</h3>
+        <img src="{{ url_for('static', filename='golden-mile-1977.jpg') }}" alt="Railroad Era" class="timeline-image-full">
+        <p>The 19th century marked the era that reshaped Lower Merion forever. When the Pennsylvania Railroad built a new line running west out of Philadelphia, it passed directly through the township. Elegant stations and planned communities emerged, attracting city residents looking for clean air, open space, and a quieter life. This corridor became famously known as the Main Line, one of the most recognized suburban regions in the nation.</p>
+    </div>
+
+    <div class="summary-section">
+        <h3>20th-Century Suburban Identity</h3>
+        <p>The early 1900s brought new neighborhoods, schools, and cultural institutions. Lower Merion High School opened its doors, becoming a central part of township life. Suburban Square in Ardmore grew into one of the first modern shopping centers in the country. Parks, libraries, and civic buildings filled the map as the township evolved into a vibrant suburban hub while still maintaining its historic roots.</p>
+    </div>
+
+    <div class="summary-section">
+        <h3>Lower Merion Today</h3>
+        <p>Modern Lower Merion is a mosaic of historic landmarks, diverse neighborhoods, and active community life. From the green trails of Cynwyd Heritage Trail to the energy of Ardmore Music Hall, the township blends its past and present seamlessly. Its schools, small businesses, and cultural destinations continue to define it as a place where history is not just remembered—it is lived every day.</p>
+    </div>
+</section>
+
+<script>
+let isSummaryView = false;
+
+function toggleSummaryView() {
+    const mainContent = document.getElementById('mainContent');
+    const summarySection = document.getElementById('historySummary');
+    const summaryBtn = document.querySelector('.summary-btn');
+    const body = document.body;
+    
+    if (!isSummaryView) {
+        // Switch to summary view
+        mainContent.style.display = 'none';
+        summarySection.style.display = 'block';
+        body.classList.add('summary-visible');
+        summaryBtn.innerHTML = '<i class="fas fa-arrow-left"></i> Back to Timeline';
+        summaryBtn.style.background = 'var(--gold)';
+        summaryBtn.style.color = 'var(--maroon)';
+        
+        // Smooth scroll to top of summary
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    } else {
+        // Switch back to timeline view
+        mainContent.style.display = 'block';
+        summarySection.style.display = 'none';
+        body.classList.remove('summary-visible');
+        summaryBtn.innerHTML = '<i class="fas fa-book"></i> Read Summary';
+        summaryBtn.style.background = 'var(--maroon)';
+        summaryBtn.style.color = 'var(--white)';
+        
+        // Smooth scroll to top of timeline
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    }
+    
+    isSummaryView = !isSummaryView;
+}
+
+function toggleTimelineView() {
+    const circularTimeline = document.getElementById('circularTimeline');
+    const traditionalTimeline = document.getElementById('traditionalTimeline');
+    const toggleBtn = document.querySelector('.toggle-btn');
+    
+    if (circularTimeline.style.display !== 'none') {
+        circularTimeline.style.display = 'none';
+        traditionalTimeline.style.display = 'block';
+        toggleBtn.innerHTML = '<i class="fas fa-exchange-alt"></i> Switch to Circular Timeline View';
+    } else {
+        circularTimeline.style.display = 'block';
+        traditionalTimeline.style.display = 'none';
+        toggleBtn.innerHTML = '<i class="fas fa-exchange-alt"></i> Switch to Traditional Timeline View';
+    }
+}
+
+// Initialize with circular timeline visible
+document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('circularTimeline').style.display = 'block';
+    document.getElementById('traditionalTimeline').style.display = 'none';
+    document.getElementById('historySummary').style.display = 'none';
+});
+</script>
+
 {% endblock %}
