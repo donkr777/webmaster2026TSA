@@ -993,3 +993,277 @@ li:has(input:checked) > label::before {
         margin: 20px 0;
     }
 }
+/* Enhanced Map Styles */
+.map-wrapper {
+    position: relative;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    height: 600px;
+}
+
+#map {
+    height: 100%;
+    width: 100%;
+}
+
+/* Custom Marker Styles */
+.custom-marker {
+    background: var(--maroon);
+    border: 3px solid white;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
+
+.marker-historical { background: var(--maroon); }
+.marker-shopping { background: #db2777; }
+.marker-parks { background: #16a34a; }
+.marker-education { background: #854d0e; }
+.marker-entertainment { background: #7c3aed; }
+.marker-community { background: #0366d6; }
+.marker-sports { background: #dc2626; }
+
+/* Popup Styles */
+.leaflet-popup-content {
+    margin: 12px;
+    min-width: 250px;
+}
+
+.leaflet-popup-content h3 {
+    color: var(--maroon);
+    margin-bottom: 8px;
+    font-size: 1.2rem;
+}
+
+.leaflet-popup-content img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 8px;
+}
+
+.leaflet-popup-content .category-tag {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-right: 8px;
+}
+
+/* Quick Stats */
+.quick-stats {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid #e0e0e0;
+}
+
+.stat {
+    text-align: center;
+}
+
+.stat-number {
+    display: block;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--maroon);
+}
+
+.stat-label {
+    font-size: 0.8rem;
+    color: var(--dark-gray);
+}
+
+/* Enhanced Filter Controls */
+.filter-controls {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.filter-btn {
+    padding: 10px 20px;
+    border: 2px solid var(--maroon);
+    background: var(--white);
+    color: var(--maroon);
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.filter-btn.active,
+.filter-btn:hover {
+    background: var(--maroon);
+    color: var(--white);
+}
+
+.search-controls {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+#locationSearch {
+    padding: 12px 20px;
+    border: 2px solid var(--maroon);
+    border-radius: 25px;
+    width: 300px;
+    font-size: 16px;
+    transition: all 0.3s ease;
+}
+
+#locationSearch:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(116, 38, 79, 0.1);
+}
+
+.search-btn {
+    padding: 12px 24px;
+    background: var(--maroon);
+    color: var(--white);
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.search-btn:hover {
+    background: var(--gold);
+    color: var(--maroon);
+    transform: translateY(-2px);
+}
+
+/* Enhanced Location Cards */
+.locations-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 30px;
+    margin-top: 40px;
+}
+
+.location-card {
+    background: var(--white);
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 1px solid #e0e0e0;
+}
+
+.location-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+}
+
+.card-image {
+    height: 200px;
+    overflow: hidden;
+    background: var(--light-gray);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.location-card:hover .card-image img {
+    transform: scale(1.1);
+}
+
+.card-content {
+    padding: 20px;
+}
+
+.card-content h4 {
+    color: var(--maroon);
+    margin-bottom: 10px;
+    font-size: 1.3rem;
+}
+
+.card-content p {
+    color: var(--dark-gray);
+    margin-bottom: 15px;
+    line-height: 1.5;
+    font-size: 0.95rem;
+}
+
+.card-meta {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+/* Category Tag Colors */
+.category-tag.historical { background: #e8f4fd; color: #0366d6; }
+.category-tag.shopping { background: #fdf2f8; color: #db2777; }
+.category-tag.parks { background: #f0fdf4; color: #16a34a; }
+.category-tag.education { background: #fef7cd; color: #854d0e; }
+.category-tag.entertainment { background: #f3e8ff; color: #7c3aed; }
+.category-tag.community { background: #e0f2fe; color: #0366d6; }
+.category-tag.sports { background: #fee2e2; color: #dc2626; }
+
+.neighborhood-tag {
+    display: inline-block;
+    padding: 4px 12px;
+    background: var(--light-gray);
+    color: var(--dark-gray);
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: bold;
+}
+
+/* Responsive Design for Map */
+@media (max-width: 768px) {
+    .map-container {
+        grid-template-columns: 1fr;
+    }
+    
+    .filter-controls {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .filter-btn {
+        width: 200px;
+    }
+    
+    .search-controls {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    #locationSearch {
+        width: 100%;
+        max-width: 300px;
+    }
+    
+    .locations-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .quick-stats {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .map-wrapper {
+        height: 400px;
+    }
+}
