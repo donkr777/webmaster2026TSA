@@ -1,7 +1,535 @@
-{% extends "base.html" %}
-{% block content %}
-<article class="page">
-    <h2>Community Stories</h2>
-    <p>Placeholder for profiles and neighborhood spotlights.</p>
-</article>
-{% endblock %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lower Merion Township Stories</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Source+Sans+Pro:wght@300;400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+/* === RESET === */
+*{margin:0;padding:0;box-sizing:border-box}
+
+/* === THEME === */
+:root{
+--primary:#722F37;
+--primary-dark:#5a252c;
+--gold:#C5A572;
+--gold-light:#d4bc91;
+--background:#FAF8F5;
+--foreground:#1a1a1a;
+--muted:#f1ede7;
+--muted-foreground:#6b6b6b;
+}
+
+body{
+font-family:'Source Sans Pro',sans-serif;
+background:var(--background);
+color:var(--foreground);
+line-height:1.75;
+}
+
+.font-display{font-family:'Playfair Display',serif}
+
+/* === ANIMATIONS === */
+@keyframes fadeInUp{
+from{opacity:0;transform:translateY(40px)}
+to{opacity:1;transform:translateY(0)}
+}
+@keyframes modalOpen{
+from{opacity:0;transform:scale(.9) translateY(30px)}
+to{opacity:1;transform:scale(1) translateY(0)}
+}
+
+/* === HERO === */
+.hero{
+position:relative;
+height:100vh;
+min-height:680px;
+display:flex;
+align-items:center;
+justify-content:center;
+overflow:hidden;
+}
+.hero-bg,.hero-image,.hero-overlay{position:absolute;inset:0}
+.hero-bg{background:linear-gradient(135deg,var(--primary),var(--primary-dark))}
+.hero-image{
+background:url("/static/hero-lower-merion.jpg") center/cover;
+opacity:.25;
+}
+.hero-overlay{
+background:linear-gradient(to bottom,rgba(114,47,55,.35),rgba(114,47,55,.8))
+}
+.hero-content{
+position:relative;
+z-index:5;
+text-align:center;
+color:white;
+max-width:900px;
+padding:0 1.5rem;
+}
+.hero-badge{
+display:inline-block;
+border:1px solid var(--gold);
+color:var(--gold);
+padding:.6rem 1.6rem;
+border-radius:50px;
+letter-spacing:.25em;
+margin-bottom:1.8rem;
+}
+.hero-title{
+font-size:clamp(3rem,7vw,5.2rem);
+font-weight:700;
+margin-bottom:1.6rem;
+}
+.hero-subtitle{
+font-size:1.35rem;
+opacity:.92;
+margin-bottom:2.6rem;
+}
+.hero-btn{
+background:var(--gold);
+color:var(--primary);
+padding:1.1rem 2.4rem;
+border-radius:50px;
+text-decoration:none;
+font-weight:600;
+display:inline-flex;
+gap:.8rem;
+transition:.35s;
+}
+.hero-btn:hover{
+background:var(--gold-light);
+transform:translateY(-4px);
+}
+
+/* === INTRO === */
+.intro{
+background:white;
+padding:7rem 1.5rem;
+text-align:center;
+}
+.intro-title{
+font-size:2.8rem;
+color:var(--primary);
+margin-bottom:1.6rem;
+}
+.intro-text{
+max-width:820px;
+margin:auto;
+font-size:1.18rem;
+color:var(--muted-foreground);
+}
+
+/* === STORIES === */
+.stories{padding:5rem 1.5rem 7rem}
+.container{max-width:1240px;margin:auto}
+
+.filter-tabs{
+display:flex;
+flex-wrap:wrap;
+gap:.7rem;
+justify-content:center;
+margin-bottom:3.5rem;
+}
+.filter-btn{
+padding:.8rem 1.8rem;
+border-radius:50px;
+border:1px solid #ddd;
+background:none;
+cursor:pointer;
+transition:.3s;
+}
+.filter-btn.active,
+.filter-btn:hover{
+background:var(--primary);
+color:white;
+border-color:var(--primary);
+}
+
+.story-grid{
+display:grid;
+grid-template-columns:repeat(auto-fill,minmax(360px,1fr));
+gap:2.2rem;
+}
+
+.story-card{
+background:white;
+box-shadow:0 6px 24px rgba(0,0,0,.08);
+cursor:pointer;
+opacity:0;
+transform:translateY(40px);
+animation:fadeInUp .8s ease forwards;
+}
+.story-card:hover{
+transform:translateY(-12px);
+box-shadow:0 16px 48px rgba(114,47,55,.18);
+}
+
+.story-card-image{
+height:260px;
+position:relative;
+overflow:hidden;
+}
+.story-card-image img{
+width:100%;
+height:100%;
+object-fit:cover;
+transition:.7s;
+}
+.story-card:hover img{transform:scale(1.08)}
+
+.story-category-badge{
+position:absolute;
+top:1.2rem;
+left:1.2rem;
+background:var(--gold);
+color:var(--primary);
+padding:.4rem 1rem;
+border-radius:50px;
+font-size:.75rem;
+font-weight:700;
+}
+
+.story-card-content{padding:1.8rem}
+.story-card-title{font-size:1.48rem;margin-bottom:.9rem}
+.story-card-excerpt{
+color:var(--muted-foreground);
+font-size:.96rem;
+margin-bottom:1.3rem;
+}
+.story-card-footer{
+display:flex;
+justify-content:space-between;
+border-top:1px solid #eee;
+padding-top:1.2rem;
+}
+
+/* === MODAL === */
+.modal-overlay{
+position:fixed;
+inset:0;
+background:rgba(0,0,0,.78);
+display:none;
+align-items:center;
+justify-content:center;
+z-index:1000;
+padding:1.5rem;
+}
+.modal-overlay.active{display:flex}
+.modal{
+background:white;
+max-width:920px;
+width:100%;
+max-height:92vh;
+overflow-y:auto;
+border-radius:12px;
+animation:modalOpen .5s ease;
+}
+.modal img{
+width:100%;
+height:420px;
+object-fit:cover;
+}
+.modal-content{padding:2.5rem}
+.modal-close{
+position:fixed;
+top:1.6rem;
+right:1.6rem;
+width:48px;
+height:48px;
+border-radius:50%;
+border:none;
+font-size:1.4rem;
+cursor:pointer;
+}
+
+@media(max-width:768px){
+.modal img{height:280px}
+.modal-content{padding:1.8rem}
+}
+</style>
+</head>
+
+<body>
+
+<!-- HERO -->
+<section class="hero">
+<div class="hero-bg"></div>
+<div class="hero-image"></div>
+<div class="hero-overlay"></div>
+<div class="hero-content">
+<span class="hero-badge">Est. 1682</span>
+<h1 class="hero-title font-display">Lower Merion Township</h1>
+<p class="hero-subtitle">The people, places, legends, and living history of the Main Line</p>
+<a href="#stories" class="hero-btn">Explore Our Stories <i class="fas fa-arrow-down"></i></a>
+</div>
+</section>
+
+<!-- INTRO -->
+<section class="intro">
+<h2 class="intro-title font-display">Stories That Shape Our Community</h2>
+<p class="intro-text">
+Lower Merion Township is more than a place — it is a living record of
+colonial settlement, transportation innovation, cultural change,
+athletic excellence, and community tradition that continues to evolve today.
+</p>
+</section>
+
+<!-- STORIES -->
+<section id="stories" class="stories">
+<div class="container">
+<div class="filter-tabs">
+<button class="filter-btn active" data-filter="all">All Stories</button>
+<button class="filter-btn" data-filter="landmark">Landmarks</button>
+<button class="filter-btn" data-filter="legend">Legends</button>
+<button class="filter-btn" data-filter="community">Community</button>
+<button class="filter-btn" data-filter="history">History</button>
+</div>
+<div class="story-grid" id="storyGrid"></div>
+</div>
+</section>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modalOverlay">
+<div class="modal">
+<button class="modal-close" id="modalClose"><i class="fas fa-times"></i></button>
+<img id="modalImage">
+<div class="modal-content">
+<span class="story-category-badge" id="modalCategory"></span>
+<h2 class="font-display" id="modalTitle"></h2>
+<p id="modalDate"></p>
+<div id="modalBody"></div>
+</div>
+</div>
+</div>
+
+<script>
+const stories=[
+{
+id:1,
+title:"Kobe Bryant & Lower Merion High School",
+category:"legend",
+date:"1992–1996",
+image:"/static/kobe-bryant.jpg",
+excerpt:"The early years of a global basketball icon began on the Main Line.",
+content:`Kobe Bean Bryant attended Lower Merion High School from 1992 to 1996,
+where he quickly emerged as one of the most dominant high school basketball
+players the nation had ever seen.
+
+Playing under intense national media attention, Bryant transformed the
+Lower Merion Aces into a powerhouse program. His relentless work ethic,
+precision, and leadership culminated in a Pennsylvania state championship
+victory during his senior year in 1996.
+
+Rather than attending college, Bryant made the unprecedented decision
+to enter the NBA directly from high school, becoming the 13th overall pick
+in the NBA Draft. His success forever linked Lower Merion High School
+to basketball history, and his legacy remains a source of pride throughout
+the township.`
+},
+{
+id:2,
+title:"The Historic Ardmore District",
+category:"landmark",
+date:"1870s",
+image:"/static/ardmore-historic.jpg",
+excerpt:"A commercial heart shaped by railroads and resilience.",
+content:`Ardmore developed rapidly in the late 19th century following the
+expansion of the Pennsylvania Railroad. What was once rural farmland
+quickly became one of the Main Line’s most vibrant commercial hubs.
+
+Lancaster Avenue evolved into a bustling corridor of shops, theaters,
+banks, and restaurants, drawing residents and visitors alike. Ardmore
+Weathered economic downturns and suburban shifts while maintaining its
+walkable downtown identity.
+
+Today, Ardmore blends historic architecture with modern redevelopment,
+serving as a model for successful suburban revitalization.`
+},
+{
+id:3,
+title:"Merion Meeting House",
+category:"history",
+date:"1695",
+image:"/static/merion-meeting-house.jpg",
+excerpt:"One of the oldest Quaker meeting houses in the United States.",
+content:`Constructed in 1695 by Welsh Quakers, the Merion Friends Meeting House
+stands as one of the oldest continuously used places of worship in America.
+
+The meeting house served not only religious purposes but also functioned
+as a center for civic life, education, and early democratic discussion.
+Its stone walls witnessed debates over independence and governance.
+
+Today, the site remains active, preserving the spiritual and historical
+legacy of Lower Merion’s earliest settlers.`
+},
+{
+id:4,
+title:"Bala Cynwyd: Where Communities Meet",
+category:"community",
+date:"1880s",
+image:"/static/bala-cynwyd.jpg",
+excerpt:"Two villages that grew together into a vibrant community.",
+content:`Bala and Cynwyd began as separate villages shaped by rail lines,
+industry, and residential growth. Over time, development blurred the
+boundaries between the two, forming the combined community known today
+as Bala Cynwyd.
+
+The area became home to a diverse population, blending historic homes
+with modern apartments and commercial centers. Proximity to Philadelphia
+made Bala Cynwyd a gateway between city and suburb.
+
+Today, it stands as a dynamic community reflecting the evolution of the
+Main Line.`
+},
+{
+id:5,
+title:"Lower Merion High School: A Legacy of Excellence",
+category:"landmark",
+date:"1898",
+image:"/static/lower-merion-high.jpg",
+excerpt:"Over a century of academic and cultural influence.",
+content:`Established in 1898, Lower Merion High School has long been recognized
+as one of Pennsylvania’s premier public schools.
+
+Beyond academics, the school has shaped civic leaders, artists, athletes,
+and innovators. Its campus reflects architectural evolution while
+maintaining deep traditions.
+
+The school remains a cornerstone of township identity and pride.`
+},
+{
+id:6,
+title:"Harriton House: Living Colonial History",
+category:"history",
+date:"1704",
+image:"/static/harriton-house.jpg",
+excerpt:"A surviving window into colonial Pennsylvania life.",
+content:`Harriton House was built in 1704 and served as the home of Charles
+Thomson, secretary of the Continental Congress.
+
+The house played host to prominent Revolutionary figures and remains
+one of the best-preserved colonial homes in the region.
+
+Today, it operates as a museum, preserving the architectural and political
+history of early America.`
+},
+{
+id:7,
+title:"The Main Line: A Railroad Legacy",
+category:"history",
+date:"1850s",
+image:"/static/main-line-train.jpg",
+excerpt:"How railroads transformed farmland into elite suburbs.",
+content:`The term “Main Line” originated from the Pennsylvania Railroad’s
+primary route west of Philadelphia.
+
+Rail access enabled wealthy Philadelphians to build suburban estates,
+forever altering the region’s demographics and economy.
+
+The railroad’s influence still shapes transit, housing, and culture
+throughout Lower Merion Township.`
+},
+{
+id:8,
+title:"Suburban Square: Shopping Pioneer",
+category:"landmark",
+date:"1928",
+image:"/static/suburban-square.jpg",
+excerpt:"One of America’s first suburban shopping centers.",
+content:`Opened in 1928, Suburban Square pioneered the concept of suburban
+shopping centers long before malls became common.
+
+Its open-air design and rail accessibility made it a commercial success.
+
+Today, Suburban Square continues to evolve while honoring its historic role
+in American retail development.`
+},
+{
+id:9,
+title:"Community Traditions & Festivals",
+category:"community",
+date:"Ongoing",
+image:"/static/community-event.jpg",
+excerpt:"Events that bind neighbors together across generations.",
+content:`Lower Merion hosts annual parades, concerts, holiday celebrations,
+and cultural festivals that foster civic pride.
+
+These traditions bring together longtime residents and newcomers alike,
+strengthening community bonds.
+
+They remain essential to the township’s identity and social fabric.`
+},
+{
+id:10,
+title:"Cynwyd Heritage Trail",
+category:"community",
+date:"2011",
+image:"/static/cynwyd-trail.jpg",
+excerpt:"A trail connecting neighborhoods and natural beauty.",
+content:`The Cynwyd Heritage Trail transformed an abandoned rail corridor into
+a scenic pedestrian and cycling path.
+
+The trail enhances recreation, sustainability, and community connectivity.
+
+It stands as a modern example of adaptive reuse benefiting public life.`
+}
+];
+
+const grid=document.getElementById("storyGrid");
+const modal=document.getElementById("modalOverlay");
+
+function render(filter="all"){
+grid.innerHTML="";
+stories.filter(s=>filter==="all"||s.category===filter)
+.forEach(s=>{
+grid.innerHTML+=`
+<article class="story-card" onclick="openModal(${s.id})">
+<div class="story-card-image">
+<img src="${s.image}">
+<span class="story-category-badge">${s.category}</span>
+</div>
+<div class="story-card-content">
+<h3 class="story-card-title">${s.title}</h3>
+<p class="story-card-excerpt">${s.excerpt}</p>
+<div class="story-card-footer">
+<span>${s.date}</span>
+<span>Read Story →</span>
+</div>
+</div>
+</article>`;
+});
+}
+
+function openModal(id){
+const s=stories.find(x=>x.id===id);
+document.getElementById("modalImage").src=s.image;
+document.getElementById("modalTitle").textContent=s.title;
+document.getElementById("modalCategory").textContent=s.category;
+document.getElementById("modalDate").textContent=s.date;
+document.getElementById("modalBody").textContent=s.content;
+modal.classList.add("active");
+document.body.style.overflow="hidden";
+}
+
+document.getElementById("modalClose").onclick=()=>{
+modal.classList.remove("active");
+document.body.style.overflow="";
+};
+
+document.querySelectorAll(".filter-btn").forEach(btn=>{
+btn.onclick=()=>{
+document.querySelectorAll(".filter-btn").forEach(b=>b.classList.remove("active"));
+btn.classList.add("active");
+render(btn.dataset.filter);
+};
+});
+
+render();
+</script>
+
+</body>
+</html>
